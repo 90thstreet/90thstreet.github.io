@@ -16,7 +16,6 @@ body {
     overflow-x: hidden;
 }
 
-/* LOADER */
 #loader {
     position: fixed;
     width: 100%;
@@ -41,7 +40,6 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* PARTICLES */
 #particles {
     position: fixed;
     width: 100%;
@@ -49,7 +47,6 @@ body {
     z-index: 0;
 }
 
-/* CONTENT */
 .content {
     position: relative;
     z-index: 1;
@@ -71,7 +68,6 @@ h1 {
     opacity: 0.85;
 }
 
-/* BUTTON */
 .btn {
     display: inline-block;
     padding: 12px 20px;
@@ -83,7 +79,6 @@ h1 {
     font-weight: bold;
 }
 
-/* SECTION */
 .section {
     max-width: 1000px;
     margin: 40px auto;
@@ -91,7 +86,6 @@ h1 {
     text-align: left;
 }
 
-/* CARDS */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
@@ -104,7 +98,6 @@ h1 {
     background: rgba(255,255,255,0.05);
 }
 
-/* SIMPLE SERVER TAGS */
 .tag {
     display: inline-block;
     padding: 8px 12px;
@@ -113,7 +106,6 @@ h1 {
     margin: 5px;
 }
 
-/* GALLERY */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
@@ -133,7 +125,6 @@ h1 {
     transform: scale(1.03);
 }
 
-/* MUSIC */
 #musicControl {
     position: fixed;
     top: 20px;
@@ -159,7 +150,6 @@ h1 {
 
 <canvas id="particles"></canvas>
 
-<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="https://files.catbox.moe/06zluu.mp3" type="audio/mpeg">
 </audio>
@@ -190,36 +180,35 @@ Contact Me on Discord
 
 <div class="card">
 <h3>SMP Plugins</h3>
-<p>Custom SMP systems built for your server, including abilities, progression, and economy.</p>
-<p>I also add clean visual effects like particles and simple custom features when needed.</p>
+<p>Custom SMP systems including abilities, progression, economy, and gameplay features.</p>
 <p><b>£25 – £120+</b></p>
 </div>
 
 <div class="card">
 <h3>Event Plugins</h3>
-<p>Custom PvP events, minigames, and tournament systems built for your community.</p>
+<p>Custom PvP events, minigames, and tournaments.</p>
 <p><b>£30 – £150+</b></p>
 </div>
 
 <div class="card">
 <h3>Server Optimisation</h3>
-<p>Improve TPS, reduce lag, and make your server run smoother.</p>
+<p>Improve performance, reduce lag, and boost TPS.</p>
 <p><b>£15 – £80+</b></p>
 </div>
 
 </div>
 </div>
 
-<!-- NOTE -->
+<!-- PRICING NOTE -->
 <div class="section">
 <div class="card">
-<h3>⚠ Pricing Note</h3>
-<p>Prices shown are starting estimates and may change depending on your project.</p>
-<p>Message me for an exact quote.</p>
+<h3>Pricing Notice</h3>
+<p>Prices are estimates and may change depending on the project.</p>
+<p>Contact me for exact pricing.</p>
 </div>
 </div>
 
-<!-- PAYMENT -->
+<!-- PAYMENTS -->
 <div class="section">
 <h2>Payments</h2>
 <div class="cards">
@@ -231,14 +220,14 @@ Contact Me on Discord
 
 <div class="card">
 <h3>Ko-fi</h3>
-<p>Fast and simple payments.</p>
+<p>Fast payment option.</p>
 <a class="btn" href="https://ko-fi.com/">Open Ko-fi</a>
 </div>
 
 </div>
 </div>
 
-<!-- SERVER EXPERIENCE -->
+<!-- SERVERS -->
 <div class="section">
 <h2>Servers I've Worked On</h2>
 <div>
@@ -254,7 +243,7 @@ Contact Me on Discord
 <div class="section">
 <h2>Reviews</h2>
 <div class="card">
-<p>Join my Discord for client feedback and past work reviews.</p>
+<p>Join my Discord for feedback and past work reviews.</p>
 <a class="btn" href="https://discord.gg/4WTKqVrPkV">View Reviews</a>
 </div>
 </div>
@@ -306,7 +295,6 @@ function draw(){
 }
 draw();
 
-/* MUSIC */
 let music = document.getElementById("bgMusic");
 let slider = document.getElementById("volumeSlider");
 
@@ -315,11 +303,7 @@ music.volume = 0.5;
 slider.oninput = () => music.volume = slider.value;
 
 function toggleMusic(){
-    if(music.paused){
-        music.play();
-    } else {
-        music.pause();
-    }
+    music.paused ? music.play() : music.pause();
 }
 </script>
 
