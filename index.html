@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>90thstreet | Minecraft Developer</title>
+<title>90thstreet | Minecraft Plugin Developer</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
 
@@ -16,6 +16,7 @@ body {
     overflow-x: hidden;
 }
 
+/* LOADER */
 #loader {
     position: fixed;
     width: 100%;
@@ -40,6 +41,7 @@ body {
     100% { transform: rotate(360deg); }
 }
 
+/* PARTICLES */
 #particles {
     position: fixed;
     width: 100%;
@@ -47,19 +49,20 @@ body {
     z-index: 0;
 }
 
+/* CONTENT */
 .content {
     position: relative;
     z-index: 1;
-    text-align: center;
 }
 
 header {
+    text-align: center;
     padding: 120px 20px 40px;
 }
 
 h1 {
     font-size: 4em;
-    text-shadow: 0 0 25px #38bdf8;
+    text-shadow: 0 0 30px #38bdf8;
 }
 
 .subtitle {
@@ -68,24 +71,26 @@ h1 {
     opacity: 0.85;
 }
 
+/* BUTTON */
 .btn {
     display: inline-block;
     padding: 12px 20px;
     margin-top: 15px;
-    background: #38bdf8;
+    background: linear-gradient(45deg, #38bdf8, #0ea5e9);
     border-radius: 10px;
     color: black;
     text-decoration: none;
     font-weight: bold;
 }
 
+/* SECTION */
 .section {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 40px auto;
-    padding: 20px;
-    text-align: left;
+    padding: 30px;
 }
 
+/* CARDS */
 .cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
@@ -93,51 +98,105 @@ h1 {
 }
 
 .card {
-    padding: 20px;
-    border-radius: 12px;
+    padding: 25px;
+    border-radius: 18px;
     background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(15px);
+    transition: 0.3s;
 }
 
-.tag {
-    display: inline-block;
-    padding: 8px 12px;
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 0 25px #38bdf8;
+}
+
+/* SMALL DISCORD CARD */
+.small {
+    font-size: 0.9em;
+    padding: 18px;
+    opacity: 0.95;
+}
+
+/* SERVERS */
+.servers {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.server {
     background: rgba(255,255,255,0.08);
-    border-radius: 8px;
-    margin: 5px;
+    padding: 10px 15px;
+    border-radius: 10px;
 }
 
+/* GALLERY */
 .gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-    gap: 10px;
+    gap: 15px;
 }
 
 .gallery img {
     width: 100%;
-    height: 180px;
+    height: 200px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.3s;
 }
 
 .gallery img:hover {
-    transform: scale(1.03);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #38bdf8;
 }
 
+.gallery img.zoomed {
+    transform: scale(2);
+    z-index: 10;
+    position: relative;
+}
+
+/* ORDER POPUP */
+#orderPopup {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 10px;
+    display: none;
+    z-index: 999;
+}
+
+/* MUSIC */
 #musicControl {
     position: fixed;
     top: 20px;
     right: 20px;
     display: flex;
+    align-items: center;
     gap: 10px;
     background: rgba(0,0,0,0.6);
-    padding: 10px;
-    border-radius: 10px;
+    padding: 10px 15px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 15px rgba(56,189,248,0.5);
+    z-index: 1000;
+}
+
+#musicBtn {
+    border: none;
+    background: #38bdf8;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 #volumeSlider {
     width: 100px;
+    cursor: pointer;
 }
 </style>
 </head>
@@ -150,13 +209,14 @@ h1 {
 
 <canvas id="particles"></canvas>
 
-<audio id="bgMusic" loop>
+<!-- MUSIC -->
+<audio id="bgMusic" loop preload="auto">
   <source src="https://files.catbox.moe/06zluu.mp3" type="audio/mpeg">
 </audio>
 
 <div id="musicControl">
-<button onclick="toggleMusic()">🎵</button>
-<input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.5">
+    <button id="musicBtn" onclick="toggleMusic()">🎵</button>
+    <input type="range" id="volumeSlider" min="0" max="1" step="0.01" value="0.5">
 </div>
 
 <div class="content">
@@ -164,64 +224,80 @@ h1 {
 <header>
 <h1>90thstreet</h1>
 <p class="subtitle">
-Minecraft plugin developer creating custom SMP systems, events, and server improvements.
+Fully Custom Minecraft Plugin Developer — SMP Systems, Event Plugins, and Server Optimization.
 </p>
 
 <a class="btn" href="https://discord.gg/4WTKqVrPkV" target="_blank">
-Contact Me on Discord
+🚀 Contact on Discord
 </a>
 </header>
 
+<!-- DISCORD (SMALL) -->
+<div class="section">
+<div class="cards">
+<div class="card small">
+<h3>💬 Discord</h3>
+<p><b>90thstreet</b></p>
+<p>Best way to contact me for commissions & support.</p>
+</div>
+</div>
+</div>
+
 <!-- SERVICES -->
 <div class="section">
-<h2>Services</h2>
-
+<h2>🚀 Services</h2>
 <div class="cards">
-
 <div class="card">
-<h3>SMP Plugins</h3>
-<p>Custom SMP systems including abilities, progression, economy, and gameplay mechanics.</p>
+<h3>🎮 SMP Plugins</h3>
+<p>Custom SMP systems, abilities, progression, economy.</p>
 <p><b>£25 – £120+</b></p>
 </div>
 
 <div class="card">
-<h3>Event Plugins</h3>
-<p>Custom PvP events, minigames, and tournaments.</p>
+<h3>⚡ Event Plugins</h3>
+<p>PvP events, minigames, tournaments, custom mechanics.</p>
 <p><b>£30 – £150+</b></p>
 </div>
 
 <div class="card">
-<h3>Server Optimisation</h3>
-<p>Improve performance, reduce lag, and boost TPS.</p>
+<h3>🚀 Server Optimization</h3>
+<p>Lag fixes, TPS improvements, performance tuning.</p>
 <p><b>£15 – £80+</b></p>
 </div>
-
 </div>
 </div>
 
-<!-- PRICING NOTE -->
+<!-- PRICING NOTICE -->
 <div class="section">
+<div class="cards">
 <div class="card">
-<h3>Pricing Notice</h3>
-<p>Prices are estimates and may change depending on the project.</p>
-<p>Contact me for exact pricing.</p>
+<h3>📌 Pricing Notice</h3>
+<p>
+Prices shown are <b>starting estimates only</b> and may vary depending on project complexity.
+</p>
+<p>For exact pricing, please contact me directly.</p>
+
+<a class="btn" href="https://discord.gg/4WTKqVrPkV" target="_blank">
+💬 Get Exact Pricing
+</a>
+</div>
 </div>
 </div>
 
-<!-- PAYMENTS -->
+<!-- PAYMENT -->
 <div class="section">
-<h2>Payments</h2>
+<h2>💳 Payment Methods</h2>
 <div class="cards">
 
 <div class="card">
 <h3>PayPal</h3>
-<p>Accepted for all orders.</p>
+<p>Secure payments via PayPal.</p>
 </div>
 
 <div class="card">
 <h3>Ko-fi</h3>
-<p>Fast payment option.</p>
-<a class="btn" href="https://ko-fi.com/">Open Ko-fi</a>
+<p>Quick payments via Ko-fi.</p>
+<a class="btn" href="https://ko-fi.com/" target="_blank">Open Ko-fi</a>
 </div>
 
 </div>
@@ -229,28 +305,39 @@ Contact Me on Discord
 
 <!-- SERVERS -->
 <div class="section">
-<h2>Servers I've Worked On</h2>
-<div>
-<span class="tag">Toxic SMP</span>
-<span class="tag">BirdFFA</span>
-<span class="tag">CorruptFFA</span>
-<span class="tag">SpellBound SMP</span>
-<span class="tag">VaspectSMP</span>
+<h2>⭐ Previous Servers</h2>
+<div class="servers">
+<div class="server">Toxic SMP</div>
+<div class="server">BirdFFA</div>
+<div class="server">CorruptFFA</div>
+<div class="server">SpellBound SMP</div>
+<div class="server">VaspectSMP</div>
+<div class="server">And more...</div>
 </div>
 </div>
 
 <!-- REVIEWS -->
 <div class="section">
-<h2>Reviews</h2>
+<h2>⭐ Reviews</h2>
+<div class="cards">
 <div class="card">
-<p>Join my Discord for feedback and past work reviews.</p>
-<a class="btn" href="https://discord.gg/4WTKqVrPkV">View Reviews</a>
+<p>Join Discord for client vouches & feedback.</p>
+<a class="btn" href="https://discord.gg/4WTKqVrPkV" target="_blank">
+View Reviews
+</a>
+</div>
+
+<div class="card">
+<p>✔ Custom plugin development</p>
+<p>✔ Fast delivery</p>
+<p>✔ Reliable support</p>
+</div>
 </div>
 </div>
 
 <!-- GALLERY -->
 <div class="section">
-<h2>Work</h2>
+<h2>🖼️ Work Showcase</h2>
 <div class="gallery">
 <img src="https://i.ibb.co/nqK2Gcnp/2026-04-17-00-48-05-5.png">
 <img src="https://i.ibb.co/bj1V8HfS/2026-04-17-00-49-08-2.png">
@@ -266,44 +353,66 @@ Contact Me on Discord
 
 <script>
 window.addEventListener("load", () => {
-    document.getElementById("loader").style.display = "none";
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+    }, 1000);
 });
 
+/* particles */
 const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
-for(let i=0;i<50;i++){
+for (let i = 0; i < 70; i++) {
     particles.push({
         x: Math.random()*canvas.width,
         y: Math.random()*canvas.height,
-        r: Math.random()*2
+        r: Math.random()*2,
+        dx: (Math.random()-0.5),
+        dy: (Math.random()-0.5)
     });
 }
 
-function draw(){
+function animate(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
     particles.forEach(p=>{
+        p.x+=p.dx;
+        p.y+=p.dy;
         ctx.beginPath();
         ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
         ctx.fillStyle="#38bdf8";
         ctx.fill();
     });
-    requestAnimationFrame(draw);
+    requestAnimationFrame(animate);
 }
-draw();
+animate();
 
-let music = document.getElementById("bgMusic");
-let slider = document.getElementById("volumeSlider");
+/* zoom */
+document.querySelectorAll(".gallery img").forEach(img=>{
+    img.onclick=()=>img.classList.toggle("zoomed");
+});
+
+/* music */
+let playing = false;
+const music = document.getElementById("bgMusic");
+const slider = document.getElementById("volumeSlider");
 
 music.volume = 0.5;
 
-slider.oninput = () => music.volume = slider.value;
+slider.addEventListener("input", () => {
+    music.volume = slider.value;
+});
 
 function toggleMusic(){
-    music.paused ? music.play() : music.pause();
+    if(!playing){
+        music.play();
+        playing = true;
+    } else {
+        music.pause();
+        playing = false;
+    }
 }
 </script>
 
